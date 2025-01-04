@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const Item = SpriteKind.create()
+}
 function menuChoice (chapter: number) {
     scene.setBackgroundImage(img`
         ................................................................................................................................................................
@@ -627,6 +630,28 @@ function loadLevel () {
             tiles.setCurrentTilemap(tilemap`level2`)
             scene.centerCameraAt(72, 448)
             tiles.placeOnTile(Herm, tiles.getTileLocation(2, 30))
+            for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
+                key = sprites.create(img`
+                    . . . . . . 5 5 5 5 . . . . . . 
+                    . . . . . 5 5 5 5 5 5 . . . . . 
+                    . . . . 5 5 5 . . 5 5 5 . . . . 
+                    . . . 5 5 5 . . . . 5 5 5 . . . 
+                    . . . 5 5 . . . . . . 5 5 . . . 
+                    . . . 5 5 . . . . . . 5 5 . . . 
+                    . . . 5 5 5 . . . . 5 5 5 . . . 
+                    . . . . 5 5 5 . . 5 5 5 . . . . 
+                    . . . . . 5 5 5 5 5 5 . . . . . 
+                    . . . . . . 5 5 5 5 . . . . . . 
+                    . . . . . . . 5 5 . . . . . . . 
+                    . . . . . . . 5 5 5 5 . . . . . 
+                    . . . . . . . 5 5 5 5 . . . . . 
+                    . . . . . . . 5 5 . . . . . . . 
+                    . . . . . . . 5 5 5 5 . . . . . 
+                    . . . . . . . 5 5 5 5 . . . . . 
+                    `, SpriteKind.Item)
+                tiles.placeOnTile(key, value)
+                tiles.setTileAt(value, assets.tile`transparency16`)
+            }
         }
     }
 }
@@ -954,6 +979,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+let key: Sprite = null
 let Herm: Sprite = null
 let Chapter_Show: TextSprite = null
 let Chapter_List: string[] = []
