@@ -1,6 +1,10 @@
 namespace SpriteKind {
     export const Item = SpriteKind.create()
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Item, function (sprite, otherSprite) {
+    otherSprite.setFlag(SpriteFlag.Ghost, true)
+    otherSprite.follow(sprite, 97)
+})
 function menuChoice (chapter: number) {
     scene.setBackgroundImage(img`
         ................................................................................................................................................................
@@ -632,22 +636,22 @@ function loadLevel () {
             tiles.placeOnTile(Herm, tiles.getTileLocation(2, 30))
             for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
                 key = sprites.create(img`
-                    . . . . . . 5 5 5 5 . . . . . . 
-                    . . . . . 5 5 5 5 5 5 . . . . . 
-                    . . . . 5 5 5 . . 5 5 5 . . . . 
-                    . . . 5 5 5 . . . . 5 5 5 . . . 
-                    . . . 5 5 . . . . . . 5 5 . . . 
-                    . . . 5 5 . . . . . . 5 5 . . . 
-                    . . . 5 5 5 . . . . 5 5 5 . . . 
-                    . . . . 5 5 5 . . 5 5 5 . . . . 
-                    . . . . . 5 5 5 5 5 5 . . . . . 
-                    . . . . . . 5 5 5 5 . . . . . . 
-                    . . . . . . . 5 5 . . . . . . . 
-                    . . . . . . . 5 5 5 5 . . . . . 
-                    . . . . . . . 5 5 5 5 . . . . . 
-                    . . . . . . . 5 5 . . . . . . . 
-                    . . . . . . . 5 5 5 5 . . . . . 
-                    . . . . . . . 5 5 5 5 . . . . . 
+                    . . . . . . 5 5 5 5 f . . . . . 
+                    . . . . . 5 5 5 5 5 5 f . . . . 
+                    . . . . 5 5 5 . . 5 5 5 f . . . 
+                    . . . 5 5 5 . . . . 5 5 5 f . . 
+                    . . . 5 5 . . . . . . 5 5 f . . 
+                    . . . 5 5 . . . . . . 5 5 f . . 
+                    . . . 5 5 5 . . . . 5 5 5 f . . 
+                    . . . . 5 5 5 . . 5 5 5 f . . . 
+                    . . . . . 5 5 5 5 5 5 f . . . . 
+                    . . . . . . 5 5 5 5 f . . . . . 
+                    . . . . . . . 5 5 f . . . . . . 
+                    . . . . . . . 5 5 f . . . . . . 
+                    . . . . . . . 5 5 f f . . . . . 
+                    . . . . . . . 5 5 5 5 f . . . . 
+                    . . . . . . . 5 5 f f . . . . . 
+                    . . . . . . . 5 5 5 5 f . . . . 
                     `, SpriteKind.Item)
                 tiles.placeOnTile(key, value)
                 tiles.setTileAt(value, assets.tile`transparency16`)
