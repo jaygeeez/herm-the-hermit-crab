@@ -1,9 +1,15 @@
 namespace SpriteKind {
-    export const Item = SpriteKind.create()
+    export const Key = SpriteKind.create()
+    export const Coin = SpriteKind.create()
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Item, function (sprite, otherSprite) {
-    otherSprite.setFlag(SpriteFlag.Ghost, true)
-    otherSprite.follow(sprite, 97)
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
+    if (controller.up.isPressed()) {
+        Herm.vy = -50
+    } else if (controller.down.isPressed()) {
+        Herm.vy = 50
+    } else {
+        Herm.vy = 0
+    }
 })
 function menuChoice (chapter: number) {
     scene.setBackgroundImage(img`
@@ -385,6 +391,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite, effects.rings, 100)
+    info.changeScoreBy(1)
+})
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     pause(50)
     if (!(Main_Menu)) {
@@ -392,10 +402,6 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
             animation.stopAnimation(animation.AnimationTypes.All, Herm)
         }
     }
-})
-sprites.onCreated(SpriteKind.Player, function (sprite) {
-    controller.moveSprite(sprite, 100, 0)
-    sprite.ay = 600
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
@@ -630,6 +636,7 @@ function loadLevel () {
             . c 5 c c c c c c 4 c 5 5 5 5 c 
             . c c c . . . . . c c c c c c . 
             `, SpriteKind.Player)
+        info.setScore(0)
         if (menuNumber == 0) {
             tiles.setCurrentTilemap(tilemap`level2`)
             scene.centerCameraAt(72, 448)
@@ -652,13 +659,92 @@ function loadLevel () {
                     . . . . . . . 5 5 5 5 f . . . . 
                     . . . . . . . 5 5 f f . . . . . 
                     . . . . . . . 5 5 5 5 f . . . . 
-                    `, SpriteKind.Item)
+                    `, SpriteKind.Key)
                 tiles.placeOnTile(key, value)
+                tiles.setTileAt(value, assets.tile`transparency16`)
+            }
+            for (let value of tiles.getTilesByType(assets.tile`myTile6`)) {
+                coin = sprites.create(img`
+                    . . b b b b . . 
+                    . b 5 5 5 5 b . 
+                    b 5 d 3 3 d 5 b 
+                    b 5 3 5 5 1 5 b 
+                    c 5 3 5 5 1 d c 
+                    c d d 1 1 d d c 
+                    . f d d d d f . 
+                    . . f f f f . . 
+                    `, SpriteKind.Coin)
+                tiles.placeOnTile(coin, value)
+                animation.runImageAnimation(
+                coin,
+                [img`
+                    . . b b b b . . 
+                    . b 5 5 5 5 b . 
+                    b 5 d 3 3 d 5 b 
+                    b 5 3 5 5 1 5 b 
+                    c 5 3 5 5 1 d c 
+                    c d d 1 1 d d c 
+                    . f d d d d f . 
+                    . . f f f f . . 
+                    `,img`
+                    . . b b b . . . 
+                    . b 5 5 5 b . . 
+                    b 5 d 3 d 5 b . 
+                    b 5 3 5 1 5 b . 
+                    c 5 3 5 1 d c . 
+                    c 5 d 1 d d c . 
+                    . f d d d f . . 
+                    . . f f f . . . 
+                    `,img`
+                    . . . b b . . . 
+                    . . b 5 5 b . . 
+                    . b 5 d 1 5 b . 
+                    . b 5 3 1 5 b . 
+                    . c 5 3 1 d c . 
+                    . c 5 1 d d c . 
+                    . . f d d f . . 
+                    . . . f f . . . 
+                    `,img`
+                    . . . b b . . . 
+                    . . b 5 5 b . . 
+                    . . b 1 1 b . . 
+                    . . b 5 5 b . . 
+                    . . b d d b . . 
+                    . . c d d c . . 
+                    . . c 3 3 c . . 
+                    . . . f f . . . 
+                    `,img`
+                    . . . b b . . . 
+                    . . b 5 5 b . . 
+                    . b 5 1 d 5 b . 
+                    . b 5 1 3 5 b . 
+                    . c d 1 3 5 c . 
+                    . c d d 1 5 c . 
+                    . . f d d f . . 
+                    . . . f f . . . 
+                    `,img`
+                    . . . b b b . . 
+                    . . b 5 5 5 b . 
+                    . b 5 d 3 d 5 b 
+                    . b 5 1 5 3 5 b 
+                    . c d 1 5 3 5 c 
+                    . c d d 1 d 5 c 
+                    . . f d d d f . 
+                    . . . f f f . . 
+                    `],
+                100,
+                true
+                )
                 tiles.setTileAt(value, assets.tile`transparency16`)
             }
         }
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
+    otherSprite.startEffect(effects.smiles, 100)
+    otherSprite.setFlag(SpriteFlag.Ghost, true)
+    otherSprite.follow(sprite, 97)
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
         if (!(menuNumber >= Chapter_List.length - 1)) {
@@ -983,10 +1069,15 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+sprites.onCreated(SpriteKind.Player, function (sprite) {
+    controller.moveSprite(sprite, 100, 0)
+    sprite.ay = 600
+})
+let coin: Sprite = null
 let key: Sprite = null
-let Herm: Sprite = null
 let Chapter_Show: TextSprite = null
 let Chapter_List: string[] = []
+let Herm: Sprite = null
 let menuNumber = 0
 let direction = ""
 let shelled = false
