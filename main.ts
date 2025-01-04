@@ -1,10 +1,3 @@
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
-    if (controller.up.isPressed()) {
-        Herm.startEffect(effects.spray, 100)
-    } else if (controller.down.isPressed()) {
-    	
-    }
-})
 function menuChoice (chapter: number) {
     scene.setBackgroundImage(img`
         ................................................................................................................................................................
@@ -141,20 +134,7 @@ function menuChoice (chapter: number) {
 }
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (Herm.tileKindAt(TileDirection.Bottom, assets.tile`myTile0`)) {
-        Herm.x += -0.75
-    }
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (Main_Menu) {
-        if (Chapter_List[menuNumber] == "???????") {
-            Chapter_Show.sayText("Coming Soon!", 500, true)
-        } else {
-            loadLevel()
-        }
-    } else {
-        if (Herm.isHittingTile(CollisionDirection.Bottom)) {
-            Herm.vy += -150
-        }
+        Herm.x += -1
     }
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -382,6 +362,19 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
             }
             pause(100)
             shelled = false
+        }
+    }
+})
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Main_Menu) {
+        if (Chapter_List[menuNumber] == "???????") {
+            Chapter_Show.sayText("Coming Soon!", 500, true)
+        } else {
+            loadLevel()
+        }
+    } else {
+        if (Herm.isHittingTile(CollisionDirection.Bottom)) {
+            Herm.vy += -150
         }
     }
 })
@@ -961,9 +954,9 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+let Herm: Sprite = null
 let Chapter_Show: TextSprite = null
 let Chapter_List: string[] = []
-let Herm: Sprite = null
 let menuNumber = 0
 let direction = ""
 let shelled = false
