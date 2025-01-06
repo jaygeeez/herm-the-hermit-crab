@@ -3,12 +3,12 @@ namespace SpriteKind {
     export const Coin = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
-    if (controller.up.isPressed()) {
-        Herm.vy = -50
-    } else if (controller.down.isPressed()) {
-        Herm.vy = 50
-    } else {
-        Herm.vy = 0
+    if (!(shelled)) {
+        if (controller.up.isPressed()) {
+            Herm.vy = -50
+        } else if (controller.down.isPressed()) {
+            Herm.vy = 50
+        }
     }
 })
 function menuChoice (chapter: number) {
