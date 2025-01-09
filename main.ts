@@ -149,14 +149,6 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (Herm.tileKindAt(TileDirection.Bottom, assets.tile`myTile0`)) {
         Herm.x += -1
     }
-    if (Herm.tileKindAt(TileDirection.Right, assets.tile`myTile8`)) {
-        if (hasKey) {
-            sprites.destroyAllSpritesOfKind(SpriteKind.Key)
-            hasKey = false
-            tiles.setTileAt(location, assets.tile`transparency16`)
-            tiles.setWallAt(location, false)
-        }
-    }
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
@@ -753,6 +745,16 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSpri
     otherSprite.setFlag(SpriteFlag.Ghost, true)
     otherSprite.follow(sprite, 97)
     hasKey = true
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+        tiles.setWallAt(value, false)
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, location) {
+    sprites.destroyAllSpritesOfKind(SpriteKind.Key, effects.coolRadial, 500)
+    tiles.setTileAt(location, assets.tile`transparency16`)
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+        tiles.setWallAt(value, true)
+    }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
