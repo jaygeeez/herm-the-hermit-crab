@@ -858,6 +858,9 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
         }
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
+})
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
         if (Herm.isHittingTile(CollisionDirection.Bottom) && shelled == false) {
@@ -1084,6 +1087,29 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
             }
         }
     }
+})
+sprites.onDestroyed(SpriteKind.Player, function (sprite) {
+    music.play(music.melodyPlayable(music.wawawawaa), music.PlaybackMode.UntilDone)
+    Herm = sprites.create(img`
+        . . . c c . . . . . . . . . . . 
+        . . c 3 6 c c c c . . . . . . . 
+        . . c 6 3 3 3 3 6 c . . . . . . 
+        . c 3 3 3 3 3 c c 6 c . c c . . 
+        c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+        c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
+        c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+        c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
+        c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
+        c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
+        . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
+        . . c c b 5 5 5 c 4 4 4 b 4 5 b 
+        . . b b c 5 5 5 c 4 4 b 5 5 4 c 
+        . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
+        . c 5 c c c c c c 4 c 5 5 5 5 c 
+        . c c c . . . . . c c c c c c . 
+        `, SpriteKind.Player)
+    scene.centerCameraAt(72, 448)
+    tiles.placeOnTile(Herm, tiles.getTileLocation(2, 30))
 })
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
