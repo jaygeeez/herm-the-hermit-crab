@@ -403,6 +403,12 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         }
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
         if (!(menuNumber <= 0)) {
@@ -1089,7 +1095,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
-    music.play(music.melodyPlayable(music.wawawawaa), music.PlaybackMode.UntilDone)
+    pauseUntil(() => controller.anyButton.isPressed())
     Herm = sprites.create(img`
         . . . c c . . . . . . . . . . . 
         . . c 3 6 c c c c . . . . . . . 
@@ -1114,6 +1120,12 @@ sprites.onDestroyed(SpriteKind.Player, function (sprite) {
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
     sprite.ay = 600
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 let coin: Sprite = null
 let key: Sprite = null
