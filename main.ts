@@ -757,7 +757,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSpri
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, location) {
-    sprites.destroyAllSpritesOfKind(SpriteKind.Key, effects.coolRadial, 500)
+    for (let value of sprites.allOfKind(SpriteKind.Key)) {
+        if (value.vx != 0) {
+            sprites.destroy(value)
+        }
+    }
     tiles.setTileAt(location, assets.tile`transparency16`)
     if (Herm.isHittingTile(CollisionDirection.Bottom)) {
         tiles.setTileAt(location.getNeighboringLocation(CollisionDirection.Top), assets.tile`transparency16`)
