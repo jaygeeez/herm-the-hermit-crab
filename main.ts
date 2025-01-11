@@ -375,6 +375,7 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
             }
             pause(100)
             shelled = false
+            Herm.setFlag(SpriteFlag.GhostThroughTiles, false)
         }
     }
 })
@@ -767,109 +768,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, l
         tiles.setWallAt(value, true)
     }
 })
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (Main_Menu) {
-        if (!(menuNumber >= Chapter_List.length - 1)) {
-            menuNumber += 1
-            menuChoice(menuNumber)
-        }
-    } else {
-        direction = "right"
-        if (shelled == false) {
-            animation.stopAnimation(animation.AnimationTypes.All, Herm)
-            animation.runImageAnimation(
-            Herm,
-            [img`
-                . . . c c . . . . . . . . . . . 
-                . . c 3 6 c c c c . . . . . . . 
-                . . c 6 3 3 3 3 6 c . . . . . . 
-                . c 3 3 3 3 3 c c 6 c . c c . . 
-                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
-                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
-                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
-                c 3 3 3 3 3 c c b 5 5 5 5 c . . 
-                . c 3 3 3 c 5 5 b 4 5 5 4 c . . 
-                . . b b b c c 5 b b 4 4 b 5 c . 
-                . b 5 4 4 4 c 4 5 5 5 b 4 4 c . 
-                . c 5 c 4 4 4 c 5 5 5 c 4 5 c . 
-                . c c c 4 4 4 c 5 5 5 5 c 5 c . 
-                . . . . . . . c c c c c c c . . 
-                `,img`
-                . . . . . . . . . . . . . . . . 
-                . . . . c c . . . . . . . . . . 
-                . . . c 3 6 c c c c . . . . . . 
-                . . . c 6 3 3 3 6 6 c . . . . . 
-                . . c 3 3 3 3 3 3 6 6 c . . . . 
-                . c 3 3 3 3 3 3 c c 6 6 c c c b 
-                . c 3 3 3 3 3 c 5 5 c 6 c 5 5 b 
-                . c c 3 3 3 6 f f 5 c 6 c 5 f f 
-                . c c 6 6 6 6 f f 5 c c c 5 f f 
-                . c 3 3 3 3 3 3 c 5 5 3 5 5 b . 
-                . c 3 3 3 3 c c c 4 5 5 5 5 c . 
-                . . c 3 3 c 5 5 b 4 4 5 5 4 c . 
-                . . . c b b c 5 b b 4 4 b 5 c . 
-                . . . c 5 c c 5 5 5 c 4 5 c c . 
-                . . . c c c c 5 5 5 5 c c . . . 
-                . . . . . . c c c c c c . . . . 
-                `,img`
-                . . . . . . . . . . . . . . . . 
-                . . . c c . . . . . . . . . . . 
-                . . c 3 6 c c c c . . . . . . . 
-                . . c 6 3 3 3 6 6 c . . . . . . 
-                . c 3 3 3 3 3 3 6 6 c . . . . . 
-                c 3 3 3 3 3 3 c c 6 6 c c c b . 
-                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-                c c 6 6 6 6 f f 5 c c c 5 f f . 
-                c 3 3 3 3 c c c 5 5 3 5 5 b . . 
-                c 3 3 3 c 5 5 b 5 5 5 5 5 c . . 
-                . c 3 3 c 5 b b 4 4 5 5 4 4 c . 
-                . . c b 5 5 5 b 4 4 4 b 5 5 c . 
-                . . b c 5 5 5 c 4 4 4 5 5 5 c . 
-                . . c c 5 5 5 5 c 4 c c c c . . 
-                . . c c c c c c c c c c . . . . 
-                `,img`
-                . . . c c . . . . . . . . . . . 
-                . . c 3 6 c c c c . . . . . . . 
-                . . c 6 3 3 3 3 6 c . . . . . . 
-                . c 3 3 3 3 3 c c 6 c . c c . . 
-                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
-                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
-                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
-                c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
-                . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
-                . . c c b 5 5 5 c 4 4 4 b 4 5 b 
-                . . b b c 5 5 5 c 4 4 b 5 5 4 c 
-                . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
-                . c 5 c c c c c c 4 c 5 5 5 5 c 
-                . c c c . . . . . c c c c c c . 
-                `],
-            50,
-            true
-            )
-        } else if (shelled == true && direction == "right") {
-            Herm.image.flipX()
-        }
-    }
-})
-controller.right.onEvent(ControllerButtonEvent.Released, function () {
-    pause(50)
-    if (!(Main_Menu)) {
-        if (shelled == false && Herm.vx == 0) {
-            animation.stopAnimation(animation.AnimationTypes.All, Herm)
-        }
-    }
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
-})
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
         if (Herm.isHittingTile(CollisionDirection.Bottom) && shelled == false) {
+            Herm.setFlag(SpriteFlag.GhostThroughTiles, true)
             shelled = true
             controller.moveSprite(Herm, 0, 0)
             if (direction == "right") {
@@ -1093,6 +995,106 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
             }
         }
     }
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Main_Menu) {
+        if (!(menuNumber >= Chapter_List.length - 1)) {
+            menuNumber += 1
+            menuChoice(menuNumber)
+        }
+    } else {
+        direction = "right"
+        if (shelled == false) {
+            animation.stopAnimation(animation.AnimationTypes.All, Herm)
+            animation.runImageAnimation(
+            Herm,
+            [img`
+                . . . c c . . . . . . . . . . . 
+                . . c 3 6 c c c c . . . . . . . 
+                . . c 6 3 3 3 3 6 c . . . . . . 
+                . c 3 3 3 3 3 c c 6 c . c c . . 
+                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
+                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
+                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
+                c 3 3 3 3 3 c c b 5 5 5 5 c . . 
+                . c 3 3 3 c 5 5 b 4 5 5 4 c . . 
+                . . b b b c c 5 b b 4 4 b 5 c . 
+                . b 5 4 4 4 c 4 5 5 5 b 4 4 c . 
+                . c 5 c 4 4 4 c 5 5 5 c 4 5 c . 
+                . c c c 4 4 4 c 5 5 5 5 c 5 c . 
+                . . . . . . . c c c c c c c . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . . c c . . . . . . . . . . 
+                . . . c 3 6 c c c c . . . . . . 
+                . . . c 6 3 3 3 6 6 c . . . . . 
+                . . c 3 3 3 3 3 3 6 6 c . . . . 
+                . c 3 3 3 3 3 3 c c 6 6 c c c b 
+                . c 3 3 3 3 3 c 5 5 c 6 c 5 5 b 
+                . c c 3 3 3 6 f f 5 c 6 c 5 f f 
+                . c c 6 6 6 6 f f 5 c c c 5 f f 
+                . c 3 3 3 3 3 3 c 5 5 3 5 5 b . 
+                . c 3 3 3 3 c c c 4 5 5 5 5 c . 
+                . . c 3 3 c 5 5 b 4 4 5 5 4 c . 
+                . . . c b b c 5 b b 4 4 b 5 c . 
+                . . . c 5 c c 5 5 5 c 4 5 c c . 
+                . . . c c c c 5 5 5 5 c c . . . 
+                . . . . . . c c c c c c . . . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . c c . . . . . . . . . . . 
+                . . c 3 6 c c c c . . . . . . . 
+                . . c 6 3 3 3 6 6 c . . . . . . 
+                . c 3 3 3 3 3 3 6 6 c . . . . . 
+                c 3 3 3 3 3 3 c c 6 6 c c c b . 
+                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+                c c 6 6 6 6 f f 5 c c c 5 f f . 
+                c 3 3 3 3 c c c 5 5 3 5 5 b . . 
+                c 3 3 3 c 5 5 b 5 5 5 5 5 c . . 
+                . c 3 3 c 5 b b 4 4 5 5 4 4 c . 
+                . . c b 5 5 5 b 4 4 4 b 5 5 c . 
+                . . b c 5 5 5 c 4 4 4 5 5 5 c . 
+                . . c c 5 5 5 5 c 4 c c c c . . 
+                . . c c c c c c c c c c . . . . 
+                `,img`
+                . . . c c . . . . . . . . . . . 
+                . . c 3 6 c c c c . . . . . . . 
+                . . c 6 3 3 3 3 6 c . . . . . . 
+                . c 3 3 3 3 3 c c 6 c . c c . . 
+                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
+                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
+                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
+                c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
+                . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
+                . . c c b 5 5 5 c 4 4 4 b 4 5 b 
+                . . b b c 5 5 5 c 4 4 b 5 5 4 c 
+                . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
+                . c 5 c c c c c c 4 c 5 5 5 5 c 
+                . c c c . . . . . c c c c c c . 
+                `],
+            50,
+            true
+            )
+        } else if (shelled == true && direction == "right") {
+            Herm.image.flipX()
+        }
+    }
+})
+controller.right.onEvent(ControllerButtonEvent.Released, function () {
+    pause(50)
+    if (!(Main_Menu)) {
+        if (shelled == false && Herm.vx == 0) {
+            animation.stopAnimation(animation.AnimationTypes.All, Herm)
+        }
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
     pauseUntil(() => controller.anyButton.isPressed())
