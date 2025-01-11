@@ -647,7 +647,7 @@ function loadLevel () {
         if (menuNumber == 0) {
             tiles.setCurrentTilemap(tilemap`level2`)
             scene.centerCameraAt(72, 448)
-            tiles.placeOnTile(Herm, tiles.getTileLocation(2, 30))
+            tiles.placeOnTile(Herm, tiles.getTileLocation(2, 27))
             for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
                 key = sprites.create(img`
                     . . . . . . 5 5 5 5 f . . . . . 
@@ -1117,7 +1117,7 @@ sprites.onDestroyed(SpriteKind.Player, function (sprite) {
         . c c c . . . . . c c c c c c . 
         `, SpriteKind.Player)
     scene.centerCameraAt(72, 448)
-    tiles.placeOnTile(Herm, tiles.getTileLocation(2, 30))
+    tiles.placeOnTile(Herm, tiles.getTileLocation(2, 27))
 })
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
