@@ -647,7 +647,8 @@ function loadLevel () {
         if (menuNumber == 0) {
             tiles.setCurrentTilemap(tilemap`level2`)
             scene.centerCameraAt(72, 448)
-            tiles.placeOnTile(Herm, tiles.getTileLocation(2, 27))
+            checkpoint = tiles.getTileLocation(2, 27)
+            tiles.placeOnTile(Herm, checkpoint)
             for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
                 key = sprites.create(img`
                     . . . . . . 5 5 5 5 f . . . . . 
@@ -1101,7 +1102,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, 
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
-    pauseUntil(() => controller.anyButton.isPressed())
     Herm = sprites.create(img`
         . . . c c . . . . . . . . . . . 
         . . c 3 6 c c c c . . . . . . . 
@@ -1120,8 +1120,7 @@ sprites.onDestroyed(SpriteKind.Player, function (sprite) {
         . c 5 c c c c c c 4 c 5 5 5 5 c 
         . c c c . . . . . c c c c c c . 
         `, SpriteKind.Player)
-    scene.centerCameraAt(72, 448)
-    tiles.placeOnTile(Herm, tiles.getTileLocation(2, 27))
+    tiles.placeOnTile(Herm, checkpoint)
 })
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
@@ -1135,6 +1134,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, 
 })
 let coin: Sprite = null
 let key: Sprite = null
+let checkpoint: tiles.Location = null
 let Chapter_Show: TextSprite = null
 let Chapter_List: string[] = []
 let Herm: Sprite = null
@@ -1153,12 +1153,16 @@ game.onUpdate(function () {
     if (!(Main_Menu)) {
         if (Herm.x > scene.cameraProperty(CameraProperty.Right)) {
             scene.centerCameraAt(scene.cameraProperty(CameraProperty.X) + 160, scene.cameraProperty(CameraProperty.Y))
+            checkpoint = Herm.tilemapLocation()
         } else if (Herm.x < scene.cameraProperty(CameraProperty.Left)) {
             scene.centerCameraAt(scene.cameraProperty(CameraProperty.X) - 160, scene.cameraProperty(CameraProperty.Y))
+            checkpoint = Herm.tilemapLocation()
         } else if (Herm.y < scene.cameraProperty(CameraProperty.Top)) {
             scene.centerCameraAt(scene.cameraProperty(CameraProperty.X), scene.cameraProperty(CameraProperty.Y) - 112)
+            checkpoint = Herm.tilemapLocation()
         } else if (Herm.y > scene.cameraProperty(CameraProperty.Bottom)) {
             scene.centerCameraAt(scene.cameraProperty(CameraProperty.X), scene.cameraProperty(CameraProperty.Y) + 112)
+            checkpoint = Herm.tilemapLocation()
         }
     }
 })
