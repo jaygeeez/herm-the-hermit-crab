@@ -646,7 +646,7 @@ function loadLevel () {
         info.setScore(0)
         if (menuNumber == 0) {
             tiles.setCurrentTilemap(tilemap`level2`)
-            scene.centerCameraAt(72, 448)
+            scene.centerCameraAt(4.5 * 16, 27 * 16)
             checkpoint = tiles.getTileLocation(2, 27)
             tiles.placeOnTile(Herm, checkpoint)
             for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
