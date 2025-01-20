@@ -646,6 +646,7 @@ function loadLevel () {
         info.setScore(0)
         if (menuNumber == 0) {
             tiles.setCurrentTilemap(tilemap`level2`)
+            // column at half of the room, same row as Herm.
             scene.centerCameraAt(4.5 * 16, 27 * 16)
             checkpoint = tiles.getTileLocation(2, 27)
             tiles.placeOnTile(Herm, checkpoint)
@@ -1121,6 +1122,15 @@ sprites.onDestroyed(SpriteKind.Player, function (sprite) {
         . c c c . . . . . c c c c c c . 
         `, SpriteKind.Player)
     tiles.placeOnTile(Herm, checkpoint)
+    if (sprites.allOfKind(SpriteKind.Key).length > 0) {
+        for (let value of sprites.allOfKind(SpriteKind.Key)) {
+            value.setFlag(SpriteFlag.Ghost, false)
+            hasKey = false
+        }
+        for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+            tiles.setWallAt(value, true)
+        }
+    }
 })
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
