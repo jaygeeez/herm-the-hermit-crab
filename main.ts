@@ -746,7 +746,6 @@ function loadLevel () {
                 )
                 tiles.setTileAt(value, assets.tile`transparency16`)
             }
-            hazardSelect()
         }
     }
 }
