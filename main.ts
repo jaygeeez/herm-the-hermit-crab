@@ -746,6 +746,7 @@ function loadLevel () {
                 )
                 tiles.setTileAt(value, assets.tile`transparency16`)
             }
+            hazardSelect()
         }
     }
 }
@@ -761,7 +762,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSpri
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, location) {
     for (let value of sprites.allOfKind(SpriteKind.Key)) {
         if (value.vx != 0) {
-            sprites.destroy(value)
+            sprites.destroy(value, effects.halo, 100)
         }
     }
     tiles.setTileAt(location, assets.tile`transparency16`)
@@ -1100,8 +1101,120 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
+    sprites.destroy(Herm, effects.ashes, 10)
 })
+function hazardSelect () {
+    Hazards = [
+    img`
+        . . . . . . . c c . . . . . . . 
+        . . . . . . c b d c . . . . . . 
+        . . . . . . c b d c . . . . . . 
+        . . . . . c b b b d c . . . . . 
+        . . . . . c b b b d c . . . . . 
+        . . . . c b b b b b d c . . . . 
+        . . . . c b b b b b d c . . . . 
+        . . . c b b b b b b b d c . . . 
+        . . . c b b b b b b b d c . . . 
+        . . . c b b b b b b b d c . . . 
+        . . c b b b b b b b b b d c . . 
+        . . c b b b b b b b b b d c . . 
+        . c b b b b b b b b b b b d c . 
+        . c b b b b b b b b b b b d c . 
+        c b b b b b b b b b b b b b d c 
+        c c c c c c c c c c c c c c c c 
+        `,
+    img`
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        `,
+    img`
+        f e e e e e e f f e e e e e e f 
+        f f e e e e f f f f e e e e f f 
+        f f f e e f f f f f f e e f f f 
+        . f f f f f f . . f f f f f f . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        `,
+    img`
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . . . 2 2 . . . . . . 2 2 . . . 
+        . f f f f f f . . f f f f f f . 
+        f f f e e f f f f f f e e f f f 
+        f f e e e e f f f f e e e e f f 
+        f e e e e e e f f e e e e e e f 
+        `,
+    img`
+        f f f . . . . . . . . . . . . . 
+        e f f f . . . . . . . . . . . . 
+        e e f f . . . . . . . . . . . . 
+        e e e f 2 2 2 2 2 2 2 2 2 2 2 2 
+        e e e f 2 2 2 2 2 2 2 2 2 2 2 2 
+        e e f f . . . . . . . . . . . . 
+        e f f f . . . . . . . . . . . . 
+        f f f . . . . . . . . . . . . . 
+        f f f . . . . . . . . . . . . . 
+        e f f f . . . . . . . . . . . . 
+        e e f f . . . . . . . . . . . . 
+        e e e f 2 2 2 2 2 2 2 2 2 2 2 2 
+        e e e f 2 2 2 2 2 2 2 2 2 2 2 2 
+        e e f f . . . . . . . . . . . . 
+        e f f f . . . . . . . . . . . . 
+        f f f . . . . . . . . . . . . . 
+        `,
+    img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `
+    ]
+}
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
     Herm = sprites.create(img`
         . . . c c . . . . . . . . . . . 
@@ -1142,6 +1255,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
+let Hazards: Image[] = []
 let coin: Sprite = null
 let key: Sprite = null
 let checkpoint: tiles.Location = null
