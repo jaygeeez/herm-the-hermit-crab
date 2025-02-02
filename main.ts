@@ -645,10 +645,7 @@ function loadLevel () {
             `, SpriteKind.Player)
         info.setScore(0)
         if (menuNumber == 0) {
-            tiles.setCurrentTilemap(tilemap`level2`)
-            // column at half of the room, same row as Herm.
-            scene.centerCameraAt(4.5 * 16, 27 * 16)
-            checkpoint = tiles.getTileLocation(2, 27)
+            mapSelect(1)
             tiles.placeOnTile(Herm, checkpoint)
             for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
                 key = sprites.create(img`
@@ -1102,118 +1099,6 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
     sprites.destroy(Herm, effects.ashes, 10)
 })
-function hazardSelect () {
-    Hazards = [
-    img`
-        . . . . . . . c c . . . . . . . 
-        . . . . . . c b d c . . . . . . 
-        . . . . . . c b d c . . . . . . 
-        . . . . . c b b b d c . . . . . 
-        . . . . . c b b b d c . . . . . 
-        . . . . c b b b b b d c . . . . 
-        . . . . c b b b b b d c . . . . 
-        . . . c b b b b b b b d c . . . 
-        . . . c b b b b b b b d c . . . 
-        . . . c b b b b b b b d c . . . 
-        . . c b b b b b b b b b d c . . 
-        . . c b b b b b b b b b d c . . 
-        . c b b b b b b b b b b b d c . 
-        . c b b b b b b b b b b b d c . 
-        c b b b b b b b b b b b b b d c 
-        c c c c c c c c c c c c c c c c 
-        `,
-    img`
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        `,
-    img`
-        f e e e e e e f f e e e e e e f 
-        f f e e e e f f f f e e e e f f 
-        f f f e e f f f f f f e e f f f 
-        . f f f f f f . . f f f f f f . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        `,
-    img`
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . . . 2 2 . . . . . . 2 2 . . . 
-        . f f f f f f . . f f f f f f . 
-        f f f e e f f f f f f e e f f f 
-        f f e e e e f f f f e e e e f f 
-        f e e e e e e f f e e e e e e f 
-        `,
-    img`
-        f f f . . . . . . . . . . . . . 
-        e f f f . . . . . . . . . . . . 
-        e e f f . . . . . . . . . . . . 
-        e e e f 2 2 2 2 2 2 2 2 2 2 2 2 
-        e e e f 2 2 2 2 2 2 2 2 2 2 2 2 
-        e e f f . . . . . . . . . . . . 
-        e f f f . . . . . . . . . . . . 
-        f f f . . . . . . . . . . . . . 
-        f f f . . . . . . . . . . . . . 
-        e f f f . . . . . . . . . . . . 
-        e e f f . . . . . . . . . . . . 
-        e e e f 2 2 2 2 2 2 2 2 2 2 2 2 
-        e e e f 2 2 2 2 2 2 2 2 2 2 2 2 
-        e e f f . . . . . . . . . . . . 
-        e f f f . . . . . . . . . . . . 
-        f f f . . . . . . . . . . . . . 
-        `,
-    img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `
-    ]
-}
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
     Herm = sprites.create(img`
         . . . c c . . . . . . . . . . . 
@@ -1244,6 +1129,11 @@ sprites.onDestroyed(SpriteKind.Player, function (sprite) {
         }
     }
 })
+function mapSelect (num: number) {
+    tiles.setCurrentTilemap(tilemap`level6`)
+    scene.centerCameraAt(4.5 * 16, 6 * 16)
+    checkpoint = tiles.getTileLocation(2, 8)
+}
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
     sprite.ay = 600
@@ -1254,7 +1144,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
-let Hazards: Image[] = []
 let coin: Sprite = null
 let key: Sprite = null
 let checkpoint: tiles.Location = null
