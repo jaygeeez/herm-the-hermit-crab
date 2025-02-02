@@ -1134,8 +1134,9 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function mapSelect (num: number) {
+    scene.setBackgroundColor(9)
     tiles.setCurrentTilemap(tilemap`level6`)
-    scene.centerCameraAt(4.5 * 16, 6 * 16)
+    scene.centerCameraAt(4.5 * 16, 6.3 * 16)
     checkpoint = tiles.getTileLocation(2, 8)
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
