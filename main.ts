@@ -1134,10 +1134,10 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function mapSelect (num: number) {
-    scene.setBackgroundColor(9)
-    tiles.setCurrentTilemap(tilemap`level6`)
-    scene.centerCameraAt(4.5 * 16, 6.3 * 16)
-    checkpoint = tiles.getTileLocation(2, 8)
+    tiles.setCurrentTilemap(tilemap`level2`)
+    // column at half of the room, same row as Herm.
+    scene.centerCameraAt(4.5 * 16, 27 * 16)
+    checkpoint = tiles.getTileLocation(2, 27)
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
