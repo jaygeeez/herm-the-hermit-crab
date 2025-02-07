@@ -2,6 +2,9 @@ namespace SpriteKind {
     export const Key = SpriteKind.create()
     export const Coin = SpriteKind.create()
 }
+/**
+ * The final installment.
+ */
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
     if (!(shelled)) {
         if (controller.up.isPressed()) {
