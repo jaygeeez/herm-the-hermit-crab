@@ -139,12 +139,13 @@ function menuChoice (chapter: number) {
         `)
     sprites.destroyAllSpritesOfKind(SpriteKind.Text)
     Chapter_List = [
-    "Classic",
+    "Hermlog",
+    "Hermits",
     "???????",
     "???????",
     "???????"
     ]
-    Chapter_Show = textsprite.create("Chapter " + (chapter + 1) + ": " + Chapter_List[chapter], 12, 1)
+    Chapter_Show = textsprite.create("Chapter " + chapter + ": " + Chapter_List[chapter], 12, 1)
     Chapter_Show.setBorder(1, 1, 5)
     Chapter_Show.setPosition(80, 100)
 }
@@ -652,6 +653,11 @@ function loadLevel () {
             `, SpriteKind.Player)
         info.setScore(0)
         if (menuNumber == 0) {
+            mapSelect(0)
+            game.showLongText("I have a little story for you.", DialogLayout.Bottom)
+            game.showLongText("This is Herm.", DialogLayout.Bottom)
+            game.showLongText("Herm is a hermit crab.", DialogLayout.Bottom)
+        } else if (menuNumber == 1) {
             mapSelect(1)
             tiles.placeOnTile(Herm, checkpoint)
             for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
@@ -1137,10 +1143,14 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function mapSelect (num: number) {
-    tiles.setCurrentTilemap(tilemap`level2`)
-    // column at half of the room, same row as Herm.
-    scene.centerCameraAt(4.5 * 16, 27 * 16)
-    checkpoint = tiles.getTileLocation(2, 27)
+    if (num == 0) {
+        scene.setBackgroundColor(9)
+    } else if (num == 1) {
+        tiles.setCurrentTilemap(tilemap`level2`)
+        // column at half of the room, same row as Herm.
+        scene.centerCameraAt(4.5 * 16, 27 * 16)
+        checkpoint = tiles.getTileLocation(2, 27)
+    }
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
