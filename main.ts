@@ -414,9 +414,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
-function Cutscenes () {
-	
-}
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
         if (!(menuNumber <= 0)) {
@@ -510,24 +507,6 @@ function loadLevel () {
     if (Main_Menu) {
         Main_Menu = false
         sprites.destroyAllSpritesOfKind(SpriteKind.Text)
-        Herm = sprites.create(img`
-            . . . c c . . . . . . . . . . . 
-            . . c 3 6 c c c c . . . . . . . 
-            . . c 6 3 3 3 3 6 c . . . . . . 
-            . c 3 3 3 3 3 c c 6 c . c c . . 
-            c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-            c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
-            c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-            c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
-            c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
-            c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
-            . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
-            . . c c b 5 5 5 c 4 4 4 b 4 5 b 
-            . . b b c 5 5 5 c 4 4 b 5 5 4 c 
-            . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
-            . c 5 c c c c c c 4 c 5 5 5 5 c 
-            . c c c . . . . . c c c c c c . 
-            `, SpriteKind.Player)
         scene.setBackgroundImage(img`
             ................................................................................................................................................................
             ................................................................................................................................................................
@@ -650,31 +629,49 @@ function loadLevel () {
             ................................................................................................................................................................
             ................................................................................................................................................................
             `)
+        Herm = sprites.create(img`
+            . . . c c . . . . . . . . . . . 
+            . . c 3 6 c c c c . . . . . . . 
+            . . c 6 3 3 3 3 6 c . . . . . . 
+            . c 3 3 3 3 3 c c 6 c . c c . . 
+            c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+            c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
+            c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+            c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
+            c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
+            c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
+            . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
+            . . c c b 5 5 5 c 4 4 4 b 4 5 b 
+            . . b b c 5 5 5 c 4 4 b 5 5 4 c 
+            . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
+            . c 5 c c c c c c 4 c 5 5 5 5 c 
+            . c c c . . . . . c c c c c c . 
+            `, SpriteKind.Player)
         info.setScore(0)
         if (menuNumber == 0) {
+            controller.moveSprite(Herm, 0, 0)
+            Herm.setImage(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . c c . . . . . . . . . . . . 
+                . c 3 6 c c c c c . . . . . . . 
+                . c 6 6 3 3 3 6 6 c . . . . . . 
+                c 3 3 3 3 3 3 6 6 6 c . . . . . 
+                c 3 3 3 3 3 3 6 6 6 6 c . . . . 
+                c 3 3 3 3 3 6 6 6 6 6 c c c . . 
+                c 3 3 3 3 6 6 6 6 6 c 3 3 3 c . 
+                c c 3 3 6 6 6 6 6 c 3 c c c 3 c 
+                c c 6 6 6 6 6 6 c 3 c c c c 6 c 
+                c 3 3 3 3 6 6 c 6 6 c c c c 6 c 
+                c 6 3 3 3 3 6 c 6 c c c c 6 c . 
+                . c 6 3 3 3 6 c c c c c 6 c . . 
+                . . c c c c c c c c c c c . . . 
+                `)
+            shelled = true
             mapSelect(0)
-            Cutscenes()
         } else if (menuNumber == 1) {
-            Herm = sprites.create(img`
-                . . . c c . . . . . . . . . . . 
-                . . c 3 6 c c c c . . . . . . . 
-                . . c 6 3 3 3 3 6 c . . . . . . 
-                . c 3 3 3 3 3 c c 6 c . c c . . 
-                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
-                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
-                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
-                c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
-                . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
-                . . c c b 5 5 5 c 4 4 4 b 4 5 b 
-                . . b b c 5 5 5 c 4 4 b 5 5 4 c 
-                . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
-                . c 5 c c c c c c 4 c 5 5 5 5 c 
-                . c c c . . . . . c c c c c c . 
-                `, SpriteKind.Player)
             mapSelect(1)
-            tiles.placeOnTile(Herm, checkpoint)
             for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
                 key = sprites.create(img`
                     . . . . . . 5 5 5 5 f . . . . . 
@@ -828,106 +825,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, l
     for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
         tiles.setWallAt(value, true)
     }
-})
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (Main_Menu) {
-        if (!(menuNumber >= Chapter_List.length - 1)) {
-            menuNumber += 1
-            menuChoice(menuNumber)
-        }
-    } else {
-        direction = "right"
-        if (shelled == false) {
-            animation.stopAnimation(animation.AnimationTypes.All, Herm)
-            animation.runImageAnimation(
-            Herm,
-            [img`
-                . . . c c . . . . . . . . . . . 
-                . . c 3 6 c c c c . . . . . . . 
-                . . c 6 3 3 3 3 6 c . . . . . . 
-                . c 3 3 3 3 3 c c 6 c . c c . . 
-                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
-                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
-                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
-                c 3 3 3 3 3 c c b 5 5 5 5 c . . 
-                . c 3 3 3 c 5 5 b 4 5 5 4 c . . 
-                . . b b b c c 5 b b 4 4 b 5 c . 
-                . b 5 4 4 4 c 4 5 5 5 b 4 4 c . 
-                . c 5 c 4 4 4 c 5 5 5 c 4 5 c . 
-                . c c c 4 4 4 c 5 5 5 5 c 5 c . 
-                . . . . . . . c c c c c c c . . 
-                `,img`
-                . . . . . . . . . . . . . . . . 
-                . . . . c c . . . . . . . . . . 
-                . . . c 3 6 c c c c . . . . . . 
-                . . . c 6 3 3 3 6 6 c . . . . . 
-                . . c 3 3 3 3 3 3 6 6 c . . . . 
-                . c 3 3 3 3 3 3 c c 6 6 c c c b 
-                . c 3 3 3 3 3 c 5 5 c 6 c 5 5 b 
-                . c c 3 3 3 6 f f 5 c 6 c 5 f f 
-                . c c 6 6 6 6 f f 5 c c c 5 f f 
-                . c 3 3 3 3 3 3 c 5 5 3 5 5 b . 
-                . c 3 3 3 3 c c c 4 5 5 5 5 c . 
-                . . c 3 3 c 5 5 b 4 4 5 5 4 c . 
-                . . . c b b c 5 b b 4 4 b 5 c . 
-                . . . c 5 c c 5 5 5 c 4 5 c c . 
-                . . . c c c c 5 5 5 5 c c . . . 
-                . . . . . . c c c c c c . . . . 
-                `,img`
-                . . . . . . . . . . . . . . . . 
-                . . . c c . . . . . . . . . . . 
-                . . c 3 6 c c c c . . . . . . . 
-                . . c 6 3 3 3 6 6 c . . . . . . 
-                . c 3 3 3 3 3 3 6 6 c . . . . . 
-                c 3 3 3 3 3 3 c c 6 6 c c c b . 
-                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-                c c 6 6 6 6 f f 5 c c c 5 f f . 
-                c 3 3 3 3 c c c 5 5 3 5 5 b . . 
-                c 3 3 3 c 5 5 b 5 5 5 5 5 c . . 
-                . c 3 3 c 5 b b 4 4 5 5 4 4 c . 
-                . . c b 5 5 5 b 4 4 4 b 5 5 c . 
-                . . b c 5 5 5 c 4 4 4 5 5 5 c . 
-                . . c c 5 5 5 5 c 4 c c c c . . 
-                . . c c c c c c c c c c . . . . 
-                `,img`
-                . . . c c . . . . . . . . . . . 
-                . . c 3 6 c c c c . . . . . . . 
-                . . c 6 3 3 3 3 6 c . . . . . . 
-                . c 3 3 3 3 3 c c 6 c . c c . . 
-                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
-                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
-                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
-                c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
-                . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
-                . . c c b 5 5 5 c 4 4 4 b 4 5 b 
-                . . b b c 5 5 5 c 4 4 b 5 5 4 c 
-                . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
-                . c 5 c c c c c c 4 c 5 5 5 5 c 
-                . c c c . . . . . c c c c c c . 
-                `],
-            50,
-            true
-            )
-        } else if (shelled == true && direction == "right") {
-            Herm.image.flipX()
-        }
-    }
-})
-controller.right.onEvent(ControllerButtonEvent.Released, function () {
-    pause(50)
-    if (!(Main_Menu)) {
-        if (shelled == false && Herm.vx == 0) {
-            animation.stopAnimation(animation.AnimationTypes.All, Herm)
-        }
-    }
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
-    sprites.destroy(Herm, effects.ashes, 10)
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
@@ -1157,20 +1054,119 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Main_Menu) {
+        if (!(menuNumber >= Chapter_List.length - 1)) {
+            menuNumber += 1
+            menuChoice(menuNumber)
+        }
+    } else {
+        direction = "right"
+        if (shelled == false) {
+            animation.stopAnimation(animation.AnimationTypes.All, Herm)
+            animation.runImageAnimation(
+            Herm,
+            [img`
+                . . . c c . . . . . . . . . . . 
+                . . c 3 6 c c c c . . . . . . . 
+                . . c 6 3 3 3 3 6 c . . . . . . 
+                . c 3 3 3 3 3 c c 6 c . c c . . 
+                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
+                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
+                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
+                c 3 3 3 3 3 c c b 5 5 5 5 c . . 
+                . c 3 3 3 c 5 5 b 4 5 5 4 c . . 
+                . . b b b c c 5 b b 4 4 b 5 c . 
+                . b 5 4 4 4 c 4 5 5 5 b 4 4 c . 
+                . c 5 c 4 4 4 c 5 5 5 c 4 5 c . 
+                . c c c 4 4 4 c 5 5 5 5 c 5 c . 
+                . . . . . . . c c c c c c c . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . . c c . . . . . . . . . . 
+                . . . c 3 6 c c c c . . . . . . 
+                . . . c 6 3 3 3 6 6 c . . . . . 
+                . . c 3 3 3 3 3 3 6 6 c . . . . 
+                . c 3 3 3 3 3 3 c c 6 6 c c c b 
+                . c 3 3 3 3 3 c 5 5 c 6 c 5 5 b 
+                . c c 3 3 3 6 f f 5 c 6 c 5 f f 
+                . c c 6 6 6 6 f f 5 c c c 5 f f 
+                . c 3 3 3 3 3 3 c 5 5 3 5 5 b . 
+                . c 3 3 3 3 c c c 4 5 5 5 5 c . 
+                . . c 3 3 c 5 5 b 4 4 5 5 4 c . 
+                . . . c b b c 5 b b 4 4 b 5 c . 
+                . . . c 5 c c 5 5 5 c 4 5 c c . 
+                . . . c c c c 5 5 5 5 c c . . . 
+                . . . . . . c c c c c c . . . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . c c . . . . . . . . . . . 
+                . . c 3 6 c c c c . . . . . . . 
+                . . c 6 3 3 3 6 6 c . . . . . . 
+                . c 3 3 3 3 3 3 6 6 c . . . . . 
+                c 3 3 3 3 3 3 c c 6 6 c c c b . 
+                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+                c c 6 6 6 6 f f 5 c c c 5 f f . 
+                c 3 3 3 3 c c c 5 5 3 5 5 b . . 
+                c 3 3 3 c 5 5 b 5 5 5 5 5 c . . 
+                . c 3 3 c 5 b b 4 4 5 5 4 4 c . 
+                . . c b 5 5 5 b 4 4 4 b 5 5 c . 
+                . . b c 5 5 5 c 4 4 4 5 5 5 c . 
+                . . c c 5 5 5 5 c 4 c c c c . . 
+                . . c c c c c c c c c c . . . . 
+                `,img`
+                . . . c c . . . . . . . . . . . 
+                . . c 3 6 c c c c . . . . . . . 
+                . . c 6 3 3 3 3 6 c . . . . . . 
+                . c 3 3 3 3 3 c c 6 c . c c . . 
+                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
+                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
+                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
+                c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
+                . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
+                . . c c b 5 5 5 c 4 4 4 b 4 5 b 
+                . . b b c 5 5 5 c 4 4 b 5 5 4 c 
+                . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
+                . c 5 c c c c c c 4 c 5 5 5 5 c 
+                . c c c . . . . . c c c c c c . 
+                `],
+            50,
+            true
+            )
+        } else if (shelled == true && direction == "right") {
+            Herm.image.flipX()
+        }
+    }
+})
+controller.right.onEvent(ControllerButtonEvent.Released, function () {
+    pause(50)
+    if (!(Main_Menu)) {
+        if (shelled == false && Herm.vx == 0) {
+            animation.stopAnimation(animation.AnimationTypes.All, Herm)
+        }
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
+    sprites.destroy(Herm, effects.ashes, 10)
+})
 function mapSelect (num: number) {
     if (num == 0) {
         scene.setBackgroundColor(9)
+        tiles.setCurrentTilemap(tilemap`level6`)
+        scene.centerCameraAt(4.5 * 16, 6.3 * 16)
+        checkpoint = tiles.getTileLocation(2, 8)
     } else if (num == 1) {
         tiles.setCurrentTilemap(tilemap`level2`)
         // column at half of the room, same row as Herm.
         scene.centerCameraAt(4.5 * 16, 27 * 16)
         checkpoint = tiles.getTileLocation(2, 27)
-    } else if (num == 2) {
-        scene.setBackgroundColor(9)
-        tiles.setCurrentTilemap(tilemap`level6`)
-        scene.centerCameraAt(4.5 * 16, 6.3 * 16)
-        checkpoint = tiles.getTileLocation(3, 8)
     }
+    tiles.placeOnTile(Herm, checkpoint)
 }
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
@@ -1182,9 +1178,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
+let checkpoint: tiles.Location = null
 let coin: Sprite = null
 let key: Sprite = null
-let checkpoint: tiles.Location = null
 let Chapter_Show: TextSprite = null
 let Chapter_List: string[] = []
 let Herm: Sprite = null
