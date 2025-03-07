@@ -1279,15 +1279,16 @@ function mapSelect (num: number) {
             ................................................................................................................................................................
             `)
         scroller.scrollBackgroundWithSpeed(-1, 0, scroller.BackgroundLayer.Layer0)
-        scene.setBackgroundColor(9)
-        tiles.setCurrentTilemap(tilemap`level6`)
-        scene.centerCameraAt(4.5 * 16, 6.3 * 16)
-        checkpoint = tiles.getTileLocation(2, 8)
     } else if (num == 1) {
         tiles.setCurrentTilemap(tilemap`level2`)
         // column at half of the room, same row as Herm.
         scene.centerCameraAt(4.5 * 16, 27 * 16)
         checkpoint = tiles.getTileLocation(2, 27)
+    } else if (num == 2) {
+        scene.setBackgroundColor(9)
+        tiles.setCurrentTilemap(tilemap`level6`)
+        scene.centerCameraAt(4.5 * 16, 6.3 * 16)
+        checkpoint = tiles.getTileLocation(2, 8)
     }
     tiles.placeOnTile(Herm, checkpoint)
 }
