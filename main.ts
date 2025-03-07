@@ -1,6 +1,7 @@
 namespace SpriteKind {
     export const Key = SpriteKind.create()
     export const Coin = SpriteKind.create()
+    export const Idle = SpriteKind.create()
 }
 /**
  * The final installment.
@@ -414,10 +415,91 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
-sprites.onCreated(SpriteKind.Player, function (sprite) {
-    controller.moveSprite(sprite, 100, 0)
-    sprite.ay = 600
-})
+function Cutscenes () {
+    game.showLongText("This is Herm.", DialogLayout.Bottom)
+    Herm.sayText("hi", 1000, false)
+    game.showLongText("Herm is an ordinary hermit crab.", DialogLayout.Bottom)
+    game.showLongText("Herm works at an office.", DialogLayout.Bottom)
+    Herm.sayText("I do business.", 1000, false)
+    game.showLongText("Herm also likes to watch \"The Office.\"", DialogLayout.Bottom)
+    game.showLongText("Herm is content with his life,", DialogLayout.Bottom)
+    Herm.sayText("Is there more to see out there?", 1000, false)
+    game.showLongText("but always wonders if there is more to see out there.", DialogLayout.Bottom)
+    game.showLongText("Then suddenly...", DialogLayout.Bottom)
+    mySprite = sprites.create(img`
+        ............................................................cc.....
+        ...........................................................ccc.....
+        ...........................................................cdc.....
+        ..........................................................ccdc.....
+        ..........................................................cddcc....
+        .........................................................ccddbcc...
+        .........................................................cdddbcc...
+        ........................................................ccdddbdc...
+        .......................................................ccdddbddc...
+        ......................................................ccdddbbddbcc.
+        ....................................................ccbbddbbdddbdc.
+        ..................................................cccddbddddddbddc.
+        .................................................ccddddbdddddbdddcc
+        ................................................cdddddbbddddddddbcc
+        ccc............................................cdddddbbddddddddbddc
+        cdcc..........................................cddddddbbddddddbbddcc
+        cddcc........................................cddddddddbbdddddddddc.
+        .cddcc.......................................cdddddddddbddddddddc..
+        .cdddcc......................................cdddddddddbdddddbbbccc
+        ccbdddc......................................cbdddddddbbddddddddddc
+        cdbbddcc.................ccccccc.............cbdddddbbbddddddddddcc
+        cddbbddc...............ccbbbbbbbcc............cdddddbbddddddddddcc.
+        ccdddddcc.............ccbbbbbbbbbcc...........cdddddbbddddddbbbbc..
+        .cddddddcc............cbbbbbbbbbbbc...........cddddddbdddddddbbbc..
+        .ccddddddcc...........cbbbbbbffbbbcc.........cbddddddbddddddddddc..
+        ..cddddddbccccccc....c111bbbbffbbbbcc......cccddddddbbddddbbdddcc..
+        ...cddddbbdddddddcc..f111bbbbbbbbbbbccc..ccddddddbbbbdddddddbbbc...
+        ..cbbbddbbddddddddcccfbb11cbbbbbbbbbbbcccddddddddbbdddddbdddddc....
+        .cdddbbdbbbbdddddddddfbbbbcbbbbbbbbbbb6cdddddddddbdddddddbdddc.....
+        .ccdddddddbbbddddddddfbbfccbbbbbbbbbbb6cdddbbbbdbbddddddddbbbc.....
+        ..ccddddddddbddddddddfbfdcbbbbbbbbbbb66bddbbbdbbbbddbddbdddbc......
+        ....cddddddbbddddddddffddcbbbbbbbbbbb663bbbdddddddddbddbbdddc......
+        ....cbbddddbbdbbbddddddddcbbbbbbbbbbb663bbbddbdddddddbddbbbcc......
+        ....cddbbdddbbbbbddddddddcbbbbbbbbb66633ddbddbdddbbdddbddccc.......
+        ....ccddddddddddbdddddddccbbbbbbbbb6633dddbddbbdddbbddcccc.........
+        .....ccdddddddddbbddbbddcbbbbbbbbbb663dddddddcbbdddbbc.............
+        ......ccddddddddbbbbbbddc6bbbbbbbb666ddddddcccccccccc..............
+        .......ccbbbbdddddddbbbbc666bb6666663ddddddc.......................
+        .........cbbddddddddddbbc66666666663dddddddc.......................
+        .........cdddddbddddddbccd3666633ddddddddddc.......................
+        .........ccddbbbddbdddbccdd33333dddddddddddc.......................
+        ..........cccccddbbddbb.ccddddddddddddddddddc......................
+        ..............ccccccbb...ccdddddddddddddddddc......................
+        ...................cc.....ccddddddddddddddddcc.....................
+        ...........................ccddddddddddbbbbddcc....................
+        ............................bbbdddddddbbbbbddccccccc...............
+        .............................bbbddddddbdddddddddddbcc..............
+        .............................ccccddddbccccddddddddbbc..............
+        ............................c3333cdddc3333cddddddcccc..............
+        ...........................cc33333cbcc33333cdddddcc................
+        ...........................c3333333cc3333333cdcdbbc................
+        ...................bbbbbbbbc3c3c3c3cc3c3c3c3cdccbbc................
+        ...................b1d11111c3c3c3cb1c3c3c3cbbdbccc.................
+        ...................b1dd11111bcbccc111bcbcccdbbbcc..................
+        ...................b11d111111111111111dd111dbccc...................
+        ..................b111dd1111111111111dd1111dbc.....................
+        ..................b1111dd11111111111dd1111ddb......................
+        ..................b11111dd111111111dd11111ddb......................
+        .................b1111111d11111111dd111111ddb......................
+        .................b1111111dd111111dd1111111db.......................
+        .................b11111111dd111ddd11111111db.......................
+        .................b111111111dd1dd1111111111db.......................
+        ................b11111111111ddd1111111111ddb.......................
+        ................b111111111111111111111111ddb.......................
+        ................b111111111111111111111111ddb.......................
+        ................b111111111111111111111111ddb.......................
+        ................bbbb111111111111111111111db........................
+        ...................bbbbbbb111111111111111db........................
+        ..........................bbbbbbbb1111111db........................
+        .................................bbbbbbbbbb........................
+        `, SpriteKind.Player)
+    Herm.sayText("Ooh a letter! Let's see what it says.")
+}
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
         if (!(menuNumber <= 0)) {
@@ -633,31 +715,47 @@ function loadLevel () {
             ................................................................................................................................................................
             ................................................................................................................................................................
             `)
-        Herm = sprites.create(img`
-            . . . c c . . . . . . . . . . . 
-            . . c 3 6 c c c c . . . . . . . 
-            . . c 6 3 3 3 3 6 c . . . . . . 
-            . c 3 3 3 3 3 c c 6 c . c c . . 
-            c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-            c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
-            c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-            c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
-            c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
-            c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
-            . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
-            . . c c b 5 5 5 c 4 4 4 b 4 5 b 
-            . . b b c 5 5 5 c 4 4 b 5 5 4 c 
-            . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
-            . c 5 c c c c c c 4 c 5 5 5 5 c 
-            . c c c . . . . . c c c c c c . 
-            `, SpriteKind.Player)
         info.setScore(0)
         if (menuNumber == 0) {
             mapSelect(0)
-            game.showLongText("I have a little story for you.", DialogLayout.Bottom)
-            game.showLongText("This is Herm.", DialogLayout.Bottom)
-            game.showLongText("Herm is a hermit crab.", DialogLayout.Bottom)
+            Herm = sprites.create(img`
+                . . . c c . . . . . . . . . . . 
+                . . c 3 6 c c c c . . . . . . . 
+                . . c 6 3 3 3 3 6 c . . . . . . 
+                . c 3 3 3 3 3 c c 6 c . c c . . 
+                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
+                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
+                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
+                c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
+                . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
+                . . c c b 5 5 5 c 4 4 4 b 4 5 b 
+                . . b b c 5 5 5 c 4 4 b 5 5 4 c 
+                . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
+                . c 5 c c c c c c 4 c 5 5 5 5 c 
+                . c c c . . . . . c c c c c c . 
+                `, SpriteKind.Idle)
+            Cutscenes()
         } else if (menuNumber == 1) {
+            Herm = sprites.create(img`
+                . . . c c . . . . . . . . . . . 
+                . . c 3 6 c c c c . . . . . . . 
+                . . c 6 3 3 3 3 6 c . . . . . . 
+                . c 3 3 3 3 3 c c 6 c . c c . . 
+                c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+                c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
+                c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+                c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
+                c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
+                c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
+                . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
+                . . c c b 5 5 5 c 4 4 4 b 4 5 b 
+                . . b b c 5 5 5 c 4 4 b 5 5 4 c 
+                . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
+                . c 5 c c c c c c 4 c 5 5 5 5 c 
+                . c c c . . . . . c c c c c c . 
+                `, SpriteKind.Player)
             mapSelect(1)
             tiles.placeOnTile(Herm, checkpoint)
             for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
@@ -1157,6 +1255,10 @@ function mapSelect (num: number) {
         checkpoint = tiles.getTileLocation(3, 8)
     }
 }
+sprites.onCreated(SpriteKind.Player, function (sprite) {
+    controller.moveSprite(sprite, 100, 0)
+    sprite.ay = 600
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
@@ -1166,6 +1268,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, 
 let coin: Sprite = null
 let key: Sprite = null
 let checkpoint: tiles.Location = null
+let mySprite: Sprite = null
 let Chapter_Show: TextSprite = null
 let Chapter_List: string[] = []
 let Herm: Sprite = null
