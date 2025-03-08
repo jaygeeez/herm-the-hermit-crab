@@ -5,15 +5,6 @@ namespace SpriteKind {
 /**
  * The final installment.
  */
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
-    if (!(shelled)) {
-        if (controller.up.isPressed()) {
-            Herm.vy = -50
-        } else if (controller.down.isPressed()) {
-            Herm.vy = 50
-        }
-    }
-})
 function menuChoice (chapter: number) {
     scene.setBackgroundImage(img`
         ................................................................................................................................................................
@@ -1309,12 +1300,21 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (sprite, location) {
+    if (!(shelled)) {
+        if (controller.up.isPressed()) {
+            Herm.vy = -50
+        } else if (controller.down.isPressed()) {
+            Herm.vy = 50
+        }
+    }
+})
 let checkpoint: tiles.Location = null
 let coin: Sprite = null
 let key: Sprite = null
+let Herm: Sprite = null
 let Chapter_Show: TextSprite = null
 let Chapter_List: string[] = []
-let Herm: Sprite = null
 let menuNumber = 0
 let direction = ""
 let hasKey = false
