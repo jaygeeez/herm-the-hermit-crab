@@ -670,6 +670,10 @@ function loadLevel () {
                 `)
             shelled = true
             mapSelect(0)
+            music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.UntilDone)
+            game.showLongText("Behold, the hermit crab in its natural habitat.", DialogLayout.Top)
+            game.showLongText("A resourceful wanderer of the shoreline,", DialogLayout.Top)
+            game.showLongText("it scuttles across the sand, searching for the perfect home.", DialogLayout.Top)
         } else if (menuNumber == 1) {
             mapSelect(1)
             for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
@@ -1156,6 +1160,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, 
 })
 function mapSelect (num: number) {
     if (num == 0) {
+        scene.setBackgroundColor(9)
         scroller.setLayerImage(scroller.BackgroundLayer.Layer0, img`
             ................................................................................................................................................................
             ................................................................................................................................................................
@@ -1279,13 +1284,15 @@ function mapSelect (num: number) {
             ................................................................................................................................................................
             `)
         scroller.scrollBackgroundWithSpeed(-1, 0, scroller.BackgroundLayer.Layer0)
+        tiles.setCurrentTilemap(tilemap`level9`)
+        scene.centerCameraAt(4.5 * 16, 6.3 * 16)
+        checkpoint = tiles.getTileLocation(3, 6)
     } else if (num == 1) {
         tiles.setCurrentTilemap(tilemap`level2`)
         // column at half of the room, same row as Herm.
         scene.centerCameraAt(4.5 * 16, 27 * 16)
         checkpoint = tiles.getTileLocation(2, 27)
     } else if (num == 2) {
-        scene.setBackgroundColor(9)
         tiles.setCurrentTilemap(tilemap`level6`)
         scene.centerCameraAt(4.5 * 16, 6.3 * 16)
         checkpoint = tiles.getTileLocation(2, 8)
@@ -1319,6 +1326,41 @@ hasKey = false
 direction = "right"
 menuNumber = 0
 menuChoice(menuNumber)
+game.setDialogFrame(img`
+    ..ccccc....333.....333...ccccc...
+    .c33b33c..39993...39993.c33b33c..
+    c3b33bb3c39999933399999c3bb33b3c.
+    c33b33b3c99111999991119c3b33b33c.
+    cb33b33bc91999199919991cb33b33bc.
+    c3b33bbbcb999991119999bcbbb33b3c.
+    c3bb3bbd1b111119991111b1dbb3bb3c.
+    .c33bbd1b11111111111111b1dbb33c..
+    ..cccc1b1111111111111111b1cccc...
+    .3991bb111111111111111111bb993...
+    3991991111111111111111111191993..
+    39919911111111111111111111991993.
+    39919911111111111111111111991993.
+    .3991911111111111111111111991993.
+    ..39919111111111111111111191993..
+    ..3991911111111111111111191993...
+    ..3991911111111111111111191993...
+    .39919111111111111111111191993...
+    3991991111111111111111111191993..
+    39919911111111111111111111991993.
+    39919911111111111111111111991993.
+    .3991911111111111111111111991993.
+    ..699bb111111111111111111bb1993..
+    ..cccc1b1111111111111111b1cccc...
+    .c33bbd1b11111111111111b1dbb33c..
+    c3bb3bbd1b111199911111b1dbb3bb3c.
+    c3b33bbbcb999911199999bcbbb33b3c.
+    cb33b33bc19991999199919cb33b33bc.
+    c33b33b3c91119999911199c3b33b33c.
+    c3b33bb3c99999333999993c3bb33b3c.
+    .c33b33c.39993...39993..c33b33c..
+    ..ccccc...333.....333....ccccc...
+    .................................
+    `)
 game.onUpdate(function () {
     if (!(Main_Menu)) {
         if (Herm.x > scene.cameraProperty(CameraProperty.Right)) {
