@@ -142,6 +142,7 @@ function menuChoice (chapter: number) {
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
+        tiles.setWallAt(tiles.getTileLocation(3, 5), false)
         if (shelled == true) {
             controller.moveSprite(Herm, 100, 0)
             if (direction == "right") {
@@ -667,102 +668,102 @@ function loadLevel () {
             game.showLongText("it scuttles across the sand, searching for the perfect home.", DialogLayout.Top)
         } else if (menuNumber == 1) {
             mapSelect(1)
-            for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
-                key = sprites.create(img`
-                    . . . . . . 5 5 5 5 f . . . . . 
-                    . . . . . 5 5 5 5 5 5 f . . . . 
-                    . . . . 5 5 5 . . 5 5 5 f . . . 
-                    . . . 5 5 5 . . . . 5 5 5 f . . 
-                    . . . 5 5 . . . . . . 5 5 f . . 
-                    . . . 5 5 . . . . . . 5 5 f . . 
-                    . . . 5 5 5 . . . . 5 5 5 f . . 
-                    . . . . 5 5 5 . . 5 5 5 f . . . 
-                    . . . . . 5 5 5 5 5 5 f . . . . 
-                    . . . . . . 5 5 5 5 f . . . . . 
-                    . . . . . . . 5 5 f . . . . . . 
-                    . . . . . . . 5 5 f . . . . . . 
-                    . . . . . . . 5 5 f f . . . . . 
-                    . . . . . . . 5 5 5 5 f . . . . 
-                    . . . . . . . 5 5 f f . . . . . 
-                    . . . . . . . 5 5 5 5 f . . . . 
-                    `, SpriteKind.Key)
-                tiles.placeOnTile(key, value)
-                tiles.setTileAt(value, assets.tile`transparency16`)
-            }
-            for (let value of tiles.getTilesByType(assets.tile`myTile6`)) {
-                coin = sprites.create(img`
-                    . . b b b b . . 
-                    . b 5 5 5 5 b . 
-                    b 5 d 3 3 d 5 b 
-                    b 5 3 5 5 1 5 b 
-                    c 5 3 5 5 1 d c 
-                    c d d 1 1 d d c 
-                    . f d d d d f . 
-                    . . f f f f . . 
-                    `, SpriteKind.Coin)
-                tiles.placeOnTile(coin, value)
-                animation.runImageAnimation(
-                coin,
-                [img`
-                    . . b b b b . . 
-                    . b 5 5 5 5 b . 
-                    b 5 d 3 3 d 5 b 
-                    b 5 3 5 5 1 5 b 
-                    c 5 3 5 5 1 d c 
-                    c d d 1 1 d d c 
-                    . f d d d d f . 
-                    . . f f f f . . 
-                    `,img`
-                    . . b b b . . . 
-                    . b 5 5 5 b . . 
-                    b 5 d 3 d 5 b . 
-                    b 5 3 5 1 5 b . 
-                    c 5 3 5 1 d c . 
-                    c 5 d 1 d d c . 
-                    . f d d d f . . 
-                    . . f f f . . . 
-                    `,img`
-                    . . . b b . . . 
-                    . . b 5 5 b . . 
-                    . b 5 d 1 5 b . 
-                    . b 5 3 1 5 b . 
-                    . c 5 3 1 d c . 
-                    . c 5 1 d d c . 
-                    . . f d d f . . 
-                    . . . f f . . . 
-                    `,img`
-                    . . . b b . . . 
-                    . . b 5 5 b . . 
-                    . . b 1 1 b . . 
-                    . . b 5 5 b . . 
-                    . . b d d b . . 
-                    . . c d d c . . 
-                    . . c 3 3 c . . 
-                    . . . f f . . . 
-                    `,img`
-                    . . . b b . . . 
-                    . . b 5 5 b . . 
-                    . b 5 1 d 5 b . 
-                    . b 5 1 3 5 b . 
-                    . c d 1 3 5 c . 
-                    . c d d 1 5 c . 
-                    . . f d d f . . 
-                    . . . f f . . . 
-                    `,img`
-                    . . . b b b . . 
-                    . . b 5 5 5 b . 
-                    . b 5 d 3 d 5 b 
-                    . b 5 1 5 3 5 b 
-                    . c d 1 5 3 5 c 
-                    . c d d 1 d 5 c 
-                    . . f d d d f . 
-                    . . . f f f . . 
-                    `],
-                100,
-                true
-                )
-                tiles.setTileAt(value, assets.tile`transparency16`)
-            }
+        }
+        for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
+            key = sprites.create(img`
+                . . . . . . 5 5 5 5 f . . . . . 
+                . . . . . 5 5 5 5 5 5 f . . . . 
+                . . . . 5 5 5 . . 5 5 5 f . . . 
+                . . . 5 5 5 . . . . 5 5 5 f . . 
+                . . . 5 5 . . . . . . 5 5 f . . 
+                . . . 5 5 . . . . . . 5 5 f . . 
+                . . . 5 5 5 . . . . 5 5 5 f . . 
+                . . . . 5 5 5 . . 5 5 5 f . . . 
+                . . . . . 5 5 5 5 5 5 f . . . . 
+                . . . . . . 5 5 5 5 f . . . . . 
+                . . . . . . . 5 5 f . . . . . . 
+                . . . . . . . 5 5 f . . . . . . 
+                . . . . . . . 5 5 f f . . . . . 
+                . . . . . . . 5 5 5 5 f . . . . 
+                . . . . . . . 5 5 f f . . . . . 
+                . . . . . . . 5 5 5 5 f . . . . 
+                `, SpriteKind.Key)
+            tiles.placeOnTile(key, value)
+            tiles.setTileAt(value, assets.tile`transparency16`)
+        }
+        for (let value of tiles.getTilesByType(assets.tile`myTile6`)) {
+            coin = sprites.create(img`
+                . . b b b b . . 
+                . b 5 5 5 5 b . 
+                b 5 d 3 3 d 5 b 
+                b 5 3 5 5 1 5 b 
+                c 5 3 5 5 1 d c 
+                c d d 1 1 d d c 
+                . f d d d d f . 
+                . . f f f f . . 
+                `, SpriteKind.Coin)
+            tiles.placeOnTile(coin, value)
+            animation.runImageAnimation(
+            coin,
+            [img`
+                . . b b b b . . 
+                . b 5 5 5 5 b . 
+                b 5 d 3 3 d 5 b 
+                b 5 3 5 5 1 5 b 
+                c 5 3 5 5 1 d c 
+                c d d 1 1 d d c 
+                . f d d d d f . 
+                . . f f f f . . 
+                `,img`
+                . . b b b . . . 
+                . b 5 5 5 b . . 
+                b 5 d 3 d 5 b . 
+                b 5 3 5 1 5 b . 
+                c 5 3 5 1 d c . 
+                c 5 d 1 d d c . 
+                . f d d d f . . 
+                . . f f f . . . 
+                `,img`
+                . . . b b . . . 
+                . . b 5 5 b . . 
+                . b 5 d 1 5 b . 
+                . b 5 3 1 5 b . 
+                . c 5 3 1 d c . 
+                . c 5 1 d d c . 
+                . . f d d f . . 
+                . . . f f . . . 
+                `,img`
+                . . . b b . . . 
+                . . b 5 5 b . . 
+                . . b 1 1 b . . 
+                . . b 5 5 b . . 
+                . . b d d b . . 
+                . . c d d c . . 
+                . . c 3 3 c . . 
+                . . . f f . . . 
+                `,img`
+                . . . b b . . . 
+                . . b 5 5 b . . 
+                . b 5 1 d 5 b . 
+                . b 5 1 3 5 b . 
+                . c d 1 3 5 c . 
+                . c d d 1 5 c . 
+                . . f d d f . . 
+                . . . f f . . . 
+                `,img`
+                . . . b b b . . 
+                . . b 5 5 5 b . 
+                . b 5 d 3 d 5 b 
+                . b 5 1 5 3 5 b 
+                . c d 1 5 3 5 c 
+                . c d d 1 d 5 c 
+                . . f d d d f . 
+                . . . f f f . . 
+                `],
+            100,
+            true
+            )
+            tiles.setTileAt(value, assets.tile`transparency16`)
         }
     }
 }
