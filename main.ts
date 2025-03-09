@@ -630,8 +630,8 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (
             ................................................................................................................................................................
             ................................................................................................................................................................
             `)
-        game.showLongText("Chapter 2 coming soon!", DialogLayout.Bottom)
-        game.setGameOverMessage(true, "Chapter 2 coming soon!")
+        game.showLongText("Chapter 1 coming soon!", DialogLayout.Bottom)
+        game.setGameOverMessage(true, "Chapter 1 coming soon!")
         game.setGameOverEffect(true, effects.confetti)
         game.gameOver(true)
     }
