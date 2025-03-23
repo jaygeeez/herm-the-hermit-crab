@@ -1700,6 +1700,9 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+/**
+ * Spawn Herm on a specific block specified in the tilemap (For index)
+ */
 function mapSelect (num: number) {
     if (num == 0) {
         scene.setBackgroundColor(9)
