@@ -141,12 +141,9 @@ function menuChoice (chapter: number) {
     Chapter_Show.setPosition(80, 100)
 }
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
-    if (Herm.tileKindAt(TileDirection.Bottom, myTiles.tile2)) {
+    if (Herm.tileKindAt(TileDirection.Bottom, assets.tile`myTile0`)) {
         Herm.x += -1
     }
-})
-scene.onOverlapTile(SpriteKind.Player, myTiles.tile17, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (sprite, location) {
     sprite.sayText("^", 100, true)
@@ -422,9 +419,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-scene.onOverlapTile(SpriteKind.Player, myTiles.tile13, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.rings, 100)
     info.changeScoreBy(1)
@@ -659,22 +653,6 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-scene.onOverlapTile(SpriteKind.Player, myTiles.tile10, function (sprite, location) {
-    for (let value of sprites.allOfKind(SpriteKind.Key)) {
-        if (value.vx != 0) {
-            sprites.destroy(value, effects.halo, 100)
-        }
-    }
-    tiles.setTileAt(location, myTiles.transparency16)
-    if (Herm.isHittingTile(CollisionDirection.Bottom)) {
-        tiles.setTileAt(location.getNeighboringLocation(CollisionDirection.Top), myTiles.transparency16)
-    } else {
-        tiles.setTileAt(location.getNeighboringLocation(CollisionDirection.Bottom), myTiles.transparency16)
-    }
-    for (let value of tiles.getTilesByType(myTiles.tile10)) {
-        tiles.setWallAt(value, true)
-    }
-})
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     pause(50)
     if (!(Main_Menu)) {
@@ -682,6 +660,12 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
             animation.stopAnimation(animation.AnimationTypes.All, Herm)
         }
     }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
@@ -946,7 +930,7 @@ function loadLevel () {
             info.setScore(0)
             mapSelect(1)
         }
-        for (let value of tiles.getTilesByType(myTiles.tile4)) {
+        for (let value of tiles.getTilesByType(assets.tile`myTile2`)) {
             key = sprites.create(img`
                 . . . . . . 5 5 5 5 f . . . . . 
                 . . . . . 5 5 5 5 5 5 f . . . . 
@@ -966,9 +950,9 @@ function loadLevel () {
                 . . . . . . . 5 5 5 5 f . . . . 
                 `, SpriteKind.Key)
             tiles.placeOnTile(key, value)
-            tiles.setTileAt(value, myTiles.transparency16)
+            tiles.setTileAt(value, assets.tile`transparency16`)
         }
-        for (let value of tiles.getTilesByType(myTiles.tile8)) {
+        for (let value of tiles.getTilesByType(assets.tile`myTile6`)) {
             coin = sprites.create(img`
                 . . b b b b . . 
                 . b 5 5 5 5 b . 
@@ -1040,7 +1024,7 @@ function loadLevel () {
             100,
             true
             )
-            tiles.setTileAt(value, myTiles.transparency16)
+            tiles.setTileAt(value, assets.tile`transparency16`)
         }
     }
 }
@@ -1049,7 +1033,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSpri
     otherSprite.setFlag(SpriteFlag.Ghost, true)
     otherSprite.follow(sprite, 97)
     hasKey = true
-    for (let value of tiles.getTilesByType(myTiles.tile10)) {
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
         tiles.setWallAt(value, false)
     }
 })
@@ -1078,9 +1062,25 @@ sprites.onDestroyed(SpriteKind.Player, function (sprite) {
             value.setFlag(SpriteFlag.Ghost, false)
             hasKey = false
         }
-        for (let value of tiles.getTilesByType(myTiles.tile10)) {
+        for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
             tiles.setWallAt(value, true)
         }
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, location) {
+    for (let value of sprites.allOfKind(SpriteKind.Key)) {
+        if (value.vx != 0) {
+            sprites.destroy(value, effects.halo, 100)
+        }
+    }
+    tiles.setTileAt(location, assets.tile`transparency16`)
+    if (Herm.isHittingTile(CollisionDirection.Bottom)) {
+        tiles.setTileAt(location.getNeighboringLocation(CollisionDirection.Top), assets.tile`transparency16`)
+    } else {
+        tiles.setTileAt(location.getNeighboringLocation(CollisionDirection.Bottom), assets.tile`transparency16`)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+        tiles.setWallAt(value, true)
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -1172,9 +1172,6 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-scene.onOverlapTile(SpriteKind.Player, myTiles.tile12, function (sprite, location) {
-    sprites.destroy(Herm, effects.ashes, 10)
-})
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
     pause(50)
     if (!(Main_Menu)) {
@@ -1182,9 +1179,6 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
             animation.stopAnimation(animation.AnimationTypes.All, Herm)
         }
     }
-})
-scene.onOverlapTile(SpriteKind.Player, myTiles.tile15, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
@@ -1469,8 +1463,8 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-scene.onOverlapTile(SpriteKind.Player, myTiles.tile16, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
+    sprites.destroy(Herm, effects.ashes, 10)
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
@@ -1849,6 +1843,12 @@ function mapSelect (num: number) {
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
     sprite.ay = 600
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (sprite, location) {
     if (!(shelled)) {
