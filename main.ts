@@ -3,6 +3,9 @@ namespace SpriteKind {
     export const Coin = SpriteKind.create()
 }
 /**
+ * Spawn Herm on a specific block specified in the tilemap (For index)
+ */
+/**
  * The final installment.
  */
 function menuChoice (chapter: number) {
@@ -144,6 +147,9 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (Herm.tileKindAt(TileDirection.Bottom, assets.tile`myTile0`)) {
         Herm.x += -1
     }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (sprite, location) {
     sprite.sayText("^", 100, true)
@@ -419,10 +425,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
-    sprites.destroy(otherSprite, effects.rings, 100)
-    info.changeScoreBy(1)
-})
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
         tiles.setWallAt(tiles.getTileLocation(3, 5), false)
@@ -661,11 +663,15 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         }
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite, effects.rings, 100)
+    info.changeScoreBy(1)
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
@@ -754,6 +760,18 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         } else if (shelled == true && direction == "left") {
             Herm.image.flipX()
         }
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
+    sprites.destroy(Herm, effects.ashes, 10)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
+    otherSprite.startEffect(effects.smiles, 100)
+    otherSprite.setFlag(SpriteFlag.Ghost, true)
+    otherSprite.follow(sprite, 97)
+    hasKey = true
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+        tiles.setWallAt(value, false)
     }
 })
 function loadLevel () {
@@ -1028,15 +1046,6 @@ function loadLevel () {
         }
     }
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
-    otherSprite.startEffect(effects.smiles, 100)
-    otherSprite.setFlag(SpriteFlag.Ghost, true)
-    otherSprite.follow(sprite, 97)
-    hasKey = true
-    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
-        tiles.setWallAt(value, false)
-    }
-})
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
     Herm = sprites.create(img`
         . . . c c . . . . . . . . . . . 
@@ -1082,6 +1091,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, l
     for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
         tiles.setWallAt(value, true)
     }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
@@ -1463,9 +1475,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
-    sprites.destroy(Herm, effects.ashes, 10)
-})
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
         if (Herm.isHittingTile(CollisionDirection.Bottom) && shelled == false) {
@@ -1694,9 +1703,6 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-/**
- * Spawn Herm on a specific block specified in the tilemap (For index)
- */
 function mapSelect (num: number) {
     if (num == 0) {
         scene.setBackgroundColor(9)
@@ -1843,12 +1849,6 @@ function mapSelect (num: number) {
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
     sprite.ay = 600
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (sprite, location) {
     if (!(shelled)) {
