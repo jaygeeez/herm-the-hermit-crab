@@ -666,6 +666,10 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
+sprites.onCreated(SpriteKind.Player, function (sprite) {
+    controller.moveSprite(sprite, 100, 0)
+    sprite.ay = 600
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
@@ -1846,10 +1850,6 @@ function mapSelect (num: number) {
     }
     tiles.placeOnTile(Herm, checkpoint)
 }
-sprites.onCreated(SpriteKind.Player, function (sprite) {
-    controller.moveSprite(sprite, 100, 0)
-    sprite.ay = 600
-})
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (sprite, location) {
     if (!(shelled)) {
         if (controller.up.isPressed()) {
