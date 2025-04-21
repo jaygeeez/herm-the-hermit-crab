@@ -134,7 +134,7 @@ function menuChoice (chapter: number) {
     sprites.destroyAllSpritesOfKind(SpriteKind.Text)
     Chapter_List = [
     "Prologue",
-    "Basicsss",
+    "Barnacle",
     "???????",
     "???????",
     "???????"
