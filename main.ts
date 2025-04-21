@@ -2,12 +2,6 @@ namespace SpriteKind {
     export const Key = SpriteKind.create()
     export const Coin = SpriteKind.create()
 }
-/**
- * Spawn Herm on a specific block specified in the tilemap (For index)
- */
-/**
- * The final installment.
- */
 function menuChoice (chapter: number) {
     scene.setBackgroundImage(img`
         ................................................................................................................................................................
