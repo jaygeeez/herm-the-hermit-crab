@@ -137,11 +137,6 @@ function menuChoice (chapter: number) {
     Chapter_Show.setBorder(1, 1, 5)
     Chapter_Show.setPosition(80, 100)
 }
-scene.onHitWall(SpriteKind.Player, function (sprite, location) {
-    if (Herm.tileKindAt(TileDirection.Bottom, assets.tile`myTile0`)) {
-        Herm.x += -1
-    }
-})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
@@ -659,6 +654,11 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
+})
+scene.onHitWall(SpriteKind.Player, function (sprite, location) {
+    if (Herm.tileKindAt(TileDirection.Bottom, assets.tile`myTile0`)) {
+        Herm.x += -1
+    }
 })
 sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
