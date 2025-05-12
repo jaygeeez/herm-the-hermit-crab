@@ -1026,6 +1026,15 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         }
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
+    otherSprite.startEffect(effects.smiles, 100)
+    otherSprite.setFlag(SpriteFlag.Ghost, true)
+    otherSprite.follow(sprite, 97)
+    hasKey = true
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+        tiles.setWallAt(value, false)
+    }
+})
 function loadLevel () {
     if (Main_Menu) {
         Main_Menu = false
@@ -1298,15 +1307,6 @@ function loadLevel () {
         }
     }
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
-    otherSprite.startEffect(effects.smiles, 100)
-    otherSprite.setFlag(SpriteFlag.Ghost, true)
-    otherSprite.follow(sprite, 97)
-    hasKey = true
-    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
-        tiles.setWallAt(value, false)
-    }
-})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
         if (!(menuNumber >= Chapter_List.length - 1)) {
