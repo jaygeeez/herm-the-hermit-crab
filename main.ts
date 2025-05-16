@@ -902,6 +902,14 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+controller.left.onEvent(ControllerButtonEvent.Released, function () {
+    pause(50)
+    if (!(Main_Menu)) {
+        if (shelled == false && Herm.vx == 0) {
+            animation.stopAnimation(animation.AnimationTypes.All, Herm)
+        }
+    }
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
@@ -1011,14 +1019,6 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
-    pause(50)
-    if (!(Main_Menu)) {
-        if (shelled == false && Herm.vx == 0) {
-            animation.stopAnimation(animation.AnimationTypes.All, Herm)
-        }
-    }
-})
-controller.left.onEvent(ControllerButtonEvent.Released, function () {
     pause(50)
     if (!(Main_Menu)) {
         if (shelled == false && Herm.vx == 0) {
