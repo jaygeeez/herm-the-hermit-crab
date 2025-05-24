@@ -902,14 +902,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-controller.left.onEvent(ControllerButtonEvent.Released, function () {
-    pause(50)
-    if (!(Main_Menu)) {
-        if (shelled == false && Herm.vx == 0) {
-            animation.stopAnimation(animation.AnimationTypes.All, Herm)
-        }
-    }
-})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
     sprites.destroy(Herm, effects.disintegrate, 100)
 })
@@ -1026,13 +1018,12 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
         }
     }
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
-    otherSprite.startEffect(effects.smiles, 100)
-    otherSprite.setFlag(SpriteFlag.Ghost, true)
-    otherSprite.follow(sprite, 97)
-    hasKey = true
-    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
-        tiles.setWallAt(value, false)
+controller.left.onEvent(ControllerButtonEvent.Released, function () {
+    pause(50)
+    if (!(Main_Menu)) {
+        if (shelled == false && Herm.vx == 0) {
+            animation.stopAnimation(animation.AnimationTypes.All, Herm)
+        }
     }
 })
 function loadLevel () {
@@ -1307,6 +1298,15 @@ function loadLevel () {
         }
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
+    otherSprite.startEffect(effects.smiles, 100)
+    otherSprite.setFlag(SpriteFlag.Ghost, true)
+    otherSprite.follow(sprite, 97)
+    hasKey = true
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+        tiles.setWallAt(value, false)
+    }
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
         if (!(menuNumber >= Chapter_List.length - 1)) {
@@ -1803,14 +1803,14 @@ function mapSelect (num: number) {
         scene.centerCameraAt(4.5 * 16, 6.3 * 16)
         checkpoint = tiles.getTileLocation(3, 6)
     } else if (num == 1) {
-        tiles.setCurrentTilemap(tilemap`level1`)
-        scene.centerCameraAt(4.5 * 16, 6.3 * 16)
-        checkpoint = tiles.getTileLocation(3, 6)
-    } else if (num == 2) {
         tiles.setCurrentTilemap(tilemap`level2`)
         // column at half of the room, same row as Herm.
         scene.centerCameraAt(4.5 * 16, 27 * 16)
         checkpoint = tiles.getTileLocation(2, 27)
+    } else if (num == 2) {
+        tiles.setCurrentTilemap(tilemap`level1`)
+        scene.centerCameraAt(4.5 * 16, 6.3 * 16)
+        checkpoint = tiles.getTileLocation(3, 6)
     } else {
         tiles.setCurrentTilemap(tilemap`level6`)
     }
