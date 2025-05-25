@@ -633,10 +633,6 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (
         game.gameOver(true)
     }
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
-    sprites.destroy(otherSprite, effects.rings, 100)
-    info.changeScoreBy(1)
-})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
         if (Herm.vx == 0 && !(shelled)) {
@@ -1026,6 +1022,10 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         }
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite, effects.rings, 100)
+    info.changeScoreBy(1)
+})
 function loadLevel () {
     if (Main_Menu) {
         Main_Menu = false
@@ -1305,6 +1305,36 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSpri
     hasKey = true
     for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
         tiles.setWallAt(value, false)
+    }
+})
+sprites.onDestroyed(SpriteKind.Player, function (sprite) {
+    Herm = sprites.create(img`
+        . . . c c . . . . . . . . . . . 
+        . . c 3 6 c c c c . . . . . . . 
+        . . c 6 3 3 3 3 6 c . . . . . . 
+        . c 3 3 3 3 3 c c 6 c . c c . . 
+        c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
+        c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
+        c c 3 3 3 6 f f 5 c 6 c 5 f f . 
+        c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
+        c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
+        c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
+        . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
+        . . c c b 5 5 5 c 4 4 4 b 4 5 b 
+        . . b b c 5 5 5 c 4 4 b 5 5 4 c 
+        . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
+        . c 5 c c c c c c 4 c 5 5 5 5 c 
+        . c c c . . . . . c c c c c c . 
+        `, SpriteKind.Player)
+    tiles.placeOnTile(Herm, checkpoint)
+    if (sprites.allOfKind(SpriteKind.Key).length > 0) {
+        for (let value4 of sprites.allOfKind(SpriteKind.Key)) {
+            value4.setFlag(SpriteFlag.Ghost, false)
+            hasKey = false
+        }
+        for (let value5 of tiles.getTilesByType(assets.tile`myTile8`)) {
+            tiles.setWallAt(value5, true)
+        }
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -1642,36 +1672,6 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
     sprites.destroy(Herm, effects.ashes, 10)
-})
-sprites.onDestroyed(SpriteKind.Player, function (sprite) {
-    Herm = sprites.create(img`
-        . . . c c . . . . . . . . . . . 
-        . . c 3 6 c c c c . . . . . . . 
-        . . c 6 3 3 3 3 6 c . . . . . . 
-        . c 3 3 3 3 3 c c 6 c . c c . . 
-        c 3 3 3 3 3 c 5 5 c 6 c 5 5 b . 
-        c 3 3 3 3 3 f f 5 c 6 c 5 f f . 
-        c c 3 3 3 6 f f 5 c 6 c 5 f f . 
-        c c 6 6 6 6 c 5 5 3 c 3 5 5 b . 
-        c 3 3 3 3 3 3 c 5 5 3 5 5 b . . 
-        c 3 3 3 3 3 c c 4 5 5 5 5 c c . 
-        . c 3 3 3 c 5 5 c 4 5 5 4 5 5 c 
-        . . c c b 5 5 5 c 4 4 4 b 4 5 b 
-        . . b b c 5 5 5 c 4 4 b 5 5 4 c 
-        . b 5 c c 5 5 5 5 c 4 c 5 5 5 c 
-        . c 5 c c c c c c 4 c 5 5 5 5 c 
-        . c c c . . . . . c c c c c c . 
-        `, SpriteKind.Player)
-    tiles.placeOnTile(Herm, checkpoint)
-    if (sprites.allOfKind(SpriteKind.Key).length > 0) {
-        for (let value4 of sprites.allOfKind(SpriteKind.Key)) {
-            value4.setFlag(SpriteFlag.Ghost, false)
-            hasKey = false
-        }
-        for (let value5 of tiles.getTilesByType(assets.tile`myTile8`)) {
-            tiles.setWallAt(value5, true)
-        }
-    }
 })
 function mapSelect (num: number) {
     if (num == 0) {
