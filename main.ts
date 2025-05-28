@@ -367,11 +367,6 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-scene.onHitWall(SpriteKind.Player, function (sprite, location) {
-    if (Herm.tileKindAt(TileDirection.Bottom, assets.tile`myTile0`)) {
-        Herm.x += -1
-    }
-})
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (sprite, location) {
     sprite.sayText("^", 100, true)
     if (sprite.isHittingTile(CollisionDirection.Bottom) && controller.up.isPressed()) {
@@ -917,6 +912,11 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+scene.onHitWall(SpriteKind.Player, function (sprite, location) {
+    if (Herm.tileKindAt(TileDirection.Bottom, assets.tile`myTile0`)) {
+        Herm.x += -1
+    }
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
         if (!(menuNumber <= 0)) {
@@ -1013,6 +1013,9 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
             animation.stopAnimation(animation.AnimationTypes.All, Herm)
         }
     }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     pause(50)
@@ -1944,12 +1947,6 @@ sprites.onCreated(SpriteKind.Player, function (sprite) {
     controller.moveSprite(sprite, 100, 0)
     sprite.ay = 600
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
-})
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (sprite, location) {
     if (!(shelled)) {
         if (controller.up.isPressed()) {
@@ -1958,6 +1955,9 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (spr
             Herm.vy = 50
         }
     }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 let checkpoint: tiles.Location = null
 let coin: Sprite = null
