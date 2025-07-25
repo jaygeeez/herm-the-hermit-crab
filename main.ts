@@ -367,6 +367,9 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
+})
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (sprite, location) {
     sprite.sayText("^", 100, true)
     if (sprite.isHittingTile(CollisionDirection.Bottom) && controller.up.isPressed()) {
@@ -893,12 +896,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
-    sprites.destroy(Herm, effects.disintegrate, 100)
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Main_Menu) {
         if (Chapter_List[menuNumber] == "???????") {
@@ -1028,6 +1025,15 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.rings, 100)
     info.changeScoreBy(1)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
+    otherSprite.startEffect(effects.smiles, 100)
+    otherSprite.setFlag(SpriteFlag.Ghost, true)
+    otherSprite.follow(sprite, 97)
+    hasKey = true
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+        tiles.setWallAt(value, false)
+    }
 })
 function loadLevel () {
     if (Main_Menu) {
@@ -1301,15 +1307,6 @@ function loadLevel () {
         }
     }
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Key, function (sprite, otherSprite) {
-    otherSprite.startEffect(effects.smiles, 100)
-    otherSprite.setFlag(SpriteFlag.Ghost, true)
-    otherSprite.follow(sprite, 97)
-    hasKey = true
-    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
-        tiles.setWallAt(value, false)
-    }
-})
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
     Herm = sprites.create(img`
         . . . c c . . . . . . . . . . . 
@@ -1444,6 +1441,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, l
     for (let value7 of tiles.getTilesByType(assets.tile`myTile8`)) {
         tiles.setWallAt(value7, true)
     }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
+    sprites.destroy(Herm, effects.disintegrate, 100)
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(Main_Menu)) {
